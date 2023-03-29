@@ -6,15 +6,15 @@ class Database {
       'the-masters?retryWrites=true&w=majority';
 
   static void initialize() async {
-    _database = await Db.create(
-      'mongodb+srv://arish:1234@cluster0.ogvmmiq.mongodb.net/the-masters?retryWrites=true&w=majority',
-      // 'mongodb://localhost:27017/the-masters'
-    );
-    await _database.open();
+    // _database = await Db.create(
+    //   'mongodb+srv://arish:1234@cluster0.ogvmmiq.mongodb.net/the-masters?retryWrites=true&w=majority',
+    //   // 'mongodb://localhost:27017/the-masters'
+    // );
+    // await _database.open();
 
-    _database.collection('users').find().listen((event) {
-      print(event);
-    });
+    // _database.collection('users').find().listen((event) {
+    //   print(event);
+    // });
   }
 
   static DbCollection collection(String collection) {

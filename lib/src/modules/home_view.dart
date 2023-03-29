@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:the_masters/src/modules/new_order_view.dart';
+import 'package:the_masters/src/modules/order/new_order_view.dart';
+import 'package:the_masters/src/widgets/order_chip.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -12,7 +13,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-    final primaryColorLight = Theme.of(context).primaryColorLight;
     final searchColor = primaryColor.withOpacity(.15);
 
     return DefaultTabController(
@@ -64,17 +64,7 @@ class _HomeViewState extends State<HomeView> {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text('Icons.chevron_right'),
-              leading: Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
-                decoration: BoxDecoration(
-                  color: primaryColorLight,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  (1000 + index).toString(),
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                ),
-              ),
+              leading: OrderChip(text: (1000 + index).toString()),
               subtitle: Text('+92-300-6309211'),
               trailing: Text('12-Jun-2023'),
               onTap: () {},

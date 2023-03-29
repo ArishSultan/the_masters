@@ -3,8 +3,10 @@ import 'customer.dart';
 
 ///
 abstract class CustomerService {
-  static final nameRegExp = RegExp('a-zA-Z');
-  static final orderRegExp = RegExp('1-9');
+  static final nameRegExp = RegExp('^[a-zA-Z]');
+  static final orderRegExp = RegExp('^[1-9]');
+
+  factory CustomerService() => _MockCustomerService();
 
   ///
   FutureOr<void> create(Customer customer);
@@ -21,11 +23,11 @@ abstract class CustomerService {
 
 // NOTE: Might be removed in future since, it is only used for development
 // purposes.
-class _MockCustomerService extends CustomerService {
+class _MockCustomerService implements CustomerService {
   final _data = <Customer>[
     const Customer(
       order: '18',
-      name: 'name',
+      name: 'Shoaib',
       phones: ['03345213857'],
     ),
     const Customer(
@@ -49,7 +51,7 @@ class _MockCustomerService extends CustomerService {
       phones: ['03005355424'],
     ),
     const Customer(
-      order: '231',
+      order: '70000',
       name: 'Muhammad Awais',
       phones: ['03005192131'],
     )
@@ -64,6 +66,7 @@ class _MockCustomerService extends CustomerService {
 
   @override
   List<Customer> fetch([String? query]) {
+    print(query);
     if (query == null || query.isEmpty) {
       return _data;
     }
@@ -72,9 +75,9 @@ class _MockCustomerService extends CustomerService {
       return _data
           .where((e) => e.phones.any((e) => e.startsWith(query)))
           .toList();
-    } else if (query.startsWith(CustomerService.nameRegExp)) {
+    } else if (CustomerService.nameRegExp.hasMatch(query)) {
       return _data.where((e) => e.name.contains(query)).toList();
-    } else if (query.startsWith(CustomerService.orderRegExp)) {
+    } else if (CustomerService.orderRegExp.hasMatch(query)) {
       return _data.where((e) => e.order.contains(query)).toList();
     } else {
       return _data;
